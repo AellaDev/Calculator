@@ -1,0 +1,129 @@
+/* Dark Mode Theme - Sophisticated Dark Mode */
+
+:root.theme-dark {
+    /* Primary Colors */
+    --color-primary: #f04299;
+    --color-primary-light: #ff5cad;
+    --color-primary-dark: #d63885;
+
+    /* Background Colors - Dark Mode */
+    --bg-dark: #1a1216;
+    /* Deep warm charcoal/dark plum */
+    --bg-dark-card: #251b21;
+    /* Slightly lighter cohesive dark tone */
+    --bg-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Text Colors - Dark Mode */
+    --text-dark-primary: #ffffff;
+    --text-dark-secondary: rgba(255, 255, 255, 0.8);
+    --text-dark-tertiary: rgba(255, 255, 255, 0.6);
+
+    /* Border Colors */
+    --border-dark: rgba(255, 255, 255, 0.1);
+    --border-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Button Colors */
+    --btn-number-bg: rgba(255, 255, 255, 0.05);
+    --btn-number-text: rgba(255, 255, 255, 0.9);
+    --btn-number-hover: rgba(255, 255, 255, 0.1);
+    --btn-operator-bg: var(--color-primary);
+    --btn-operator-hover: var(--color-primary-light);
+    --btn-function-bg: rgba(240, 66, 153, 0.1);
+    --btn-function-hover: rgba(240, 66, 153, 0.2);
+
+    /* Shadow Colors */
+    --shadow-primary: rgba(240, 66, 153, 0.2);
+    --shadow-primary-lg: rgba(240, 66, 153, 0.3);
+}
+
+/* Apply Dark Mode Theme */
+html.theme-dark {
+    background-color: var(--bg-dark);
+}
+
+html.theme-dark body {
+    background-color: var(--bg-dark);
+    color: var(--text-dark-primary);
+}
+
+/* Header */
+html.theme-dark header {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-bottom-color: var(--border-dark-subtle);
+}
+
+/* Sidebar */
+html.theme-dark aside {
+    background-color: rgba(37, 27, 33, 0.5);
+    border-right-color: var(--border-dark-subtle);
+}
+
+/* Calculator Card */
+html.theme-dark .calculator-card {
+    background-color: var(--bg-dark-card);
+    border-color: var(--border-dark);
+}
+
+/* Display */
+html.theme-dark .calculator-display {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: var(--border-dark-subtle);
+}
+
+html.theme-dark .display-expression {
+    color: rgba(240, 66, 153, 0.7);
+}
+
+html.theme-dark .display-result {
+    color: var(--text-dark-primary);
+}
+
+/* Buttons */
+html.theme-dark .btn-number {
+    background-color: var(--btn-number-bg);
+    color: var(--btn-number-text);
+}
+
+html.theme-dark .btn-number:hover {
+    background-color: var(--btn-number-hover);
+}
+
+html.theme-dark .btn-operator {
+    background-color: var(--btn-operator-bg);
+    box-shadow: 0 4px 12px var(--shadow-primary);
+}
+
+html.theme-dark .btn-function {
+    background-color: var(--btn-function-bg);
+    color: var(--color-primary);
+}
+
+html.theme-dark .btn-function:hover {
+    background-color: var(--btn-function-hover);
+}
+
+/* History */
+html.theme-dark .history-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-dark-subtle);
+}
+
+html.theme-dark .history-item:hover {
+    border-color: rgba(240, 66, 153, 0.3);
+}
+
+/* Footer */
+html.theme-dark footer {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-top-color: var(--border-dark-subtle);
+}
+
+/* Scrollbar */
+html.theme-dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(240, 66, 153, 0.2);
+}
+
+/* Mode Toggle */
+html.theme-dark .mode-toggle-bg {
+    background-color: rgba(255, 255, 255, 0.05);
+}

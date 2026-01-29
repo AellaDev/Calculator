@@ -1,0 +1,37 @@
+{
+  "themes": [
+    {
+      "id": "pink",
+      "name": "Pink Theme",
+      "description": "Beautiful pink theme with dark mode support",
+      "file": "pink.css",
+      "enabled": true,
+      "default": true,
+      "preview": "#f04299"
+    },
+    {
+      "id": "dark",
+      "name": "Dark Mode",
+      "description": "Sophisticated dark mode with warm charcoal tones",
+      "file": "dark.css",
+      "enabled": true,
+      "preview": "#1a1216"
+    },
+    {
+      "id": "sonic",
+      "name": "Sonic Theme",
+      "description": "Fast and vibrant Sonic the Hedgehog inspired theme",
+      "file": "sonic.css",
+      "enabled": true,
+      "preview": "#0054B4"
+    },
+    {
+      "id": "darksonic",
+      "name": "Dark Sonic",
+      "description": "Dark mode with Sonic-inspired colors and effects",
+      "file": "darksonic.css",
+      "enabled": true,
+      "preview": "#060D1A"
+    }
+  ]
+}

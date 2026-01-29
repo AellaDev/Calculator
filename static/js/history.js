@@ -140,19 +140,19 @@ class HistoryManager {
         const time = this.formatTime(new Date(item.timestamp));
 
         return `
-            <div class="p-4 bg-white dark:bg-white/5 rounded-lg border border-[#f3e7ed] dark:border-white/5 
+            <div class="history-item p-4 bg-white dark:bg-white/5 rounded-lg border border-[#f3e7ed] dark:border-white/5 
                         group hover:border-primary/30 transition-all cursor-pointer fade-in"
                  data-recall-id="${item.id}">
                 <div class="flex justify-between items-start mb-1">
-                    <p class="text-[#9a4c73] dark:text-white/60 text-xs">${time}</p>
+                    <p class="history-time text-[#9a4c73] dark:text-white/60 text-xs">${time}</p>
                     <button class="material-symbols-outlined text-xs text-[#9a4c73] opacity-0 group-hover:opacity-100 
                                    transition-opacity hover:text-red-500"
                             data-delete-id="${item.id}">
                         delete
                     </button>
                 </div>
-                <p class="text-[#1b0d14] dark:text-white/80 text-sm font-medium mb-1">${this.escapeHtml(item.expression)}</p>
-                <p class="text-primary text-xl font-bold">${this.escapeHtml(item.result)}</p>
+                <p class="history-expression text-[#1b0d14] dark:text-white/80 text-sm font-medium mb-1">${this.escapeHtml(item.expression)}</p>
+                <p class="history-result text-primary text-xl font-bold">${this.escapeHtml(item.result)}</p>
             </div>
         `;
     }

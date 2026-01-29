@@ -1,64 +1,160 @@
-/* Sonic Theme - PLACEHOLDER ONLY */
-/* This theme is not yet implemented. The structure is ready for future development. */
+/* Sonic Theme - SpeedCalc Fast Mode */
 
 :root.theme-sonic {
-    /* Primary Colors - TO BE DEFINED */
-    --color-primary: #0066ff;
-    /* Placeholder blue */
-    --color-primary-light: #3385ff;
-    --color-primary-dark: #0052cc;
+    /* Primary Colors */
+    --color-primary: #E01E22;
+    /* Vibrant Red like shoes */
+    --color-sonic-blue: #0054B4;
+    /* Iconic Blue */
+    --color-sonic-yellow: #FFD700;
+    /* Gold Ring Yellow */
+    --color-sonic-navy: #0A1428;
+    /* Deep Navy */
 
-    /* Background Colors - Light Mode - TO BE DEFINED */
-    --bg-light: #f0f4ff;
-    --bg-light-subtle: #f8faff;
-    --bg-light-card: #ffffff;
-    --bg-light-card-alt: rgba(255, 255, 255, 0.5);
+    /* Background Colors - Light Mode */
+    --bg-light: #87CEEB;
+    /* Sky Blue */
+    --bg-light-card: #F8F9FA;
+    --bg-light-subtle: rgba(255, 255, 255, 0.2);
 
-    /* Background Colors - Dark Mode - TO BE DEFINED */
-    --bg-dark: #0a1929;
-    --bg-dark-card: #132f4c;
-    --bg-dark-subtle: rgba(255, 255, 255, 0.05);
+    /* Text Colors */
+    --text-light-primary: #ffffff;
+    --text-light-secondary: rgba(255, 255, 255, 0.8);
+    --text-sonic-blue: #0054B4;
 
-    /* Text Colors - Light Mode - TO BE DEFINED */
-    --text-light-primary: #0a1929;
-    --text-light-secondary: #1e4976;
-    --text-light-tertiary: #5090d3;
+    /* Border Colors */
+    --border-light: rgba(255, 255, 255, 0.2);
+    --border-sonic: rgba(0, 84, 180, 0.1);
 
-    /* Text Colors - Dark Mode - TO BE DEFINED */
-    --text-dark-primary: #ffffff;
-    --text-dark-secondary: rgba(255, 255, 255, 0.8);
-    --text-dark-tertiary: rgba(255, 255, 255, 0.6);
-
-    /* Border Colors - TO BE DEFINED */
-    --border-light: #d0e1ff;
-    --border-light-subtle: rgba(208, 225, 255, 0.5);
-    --border-dark: rgba(255, 255, 255, 0.1);
-    --border-dark-subtle: rgba(255, 255, 255, 0.05);
-
-    /* Button Colors - TO BE DEFINED */
-    --btn-number-bg: #f8faff;
-    --btn-number-hover: rgba(0, 102, 255, 0.2);
+    /* Button Colors */
+    --btn-number-bg: #ffffff;
+    --btn-number-text: var(--color-sonic-blue);
+    --btn-number-border: rgba(0, 84, 180, 0.1);
+    --btn-number-hover: rgba(0, 84, 180, 0.1);
     --btn-operator-bg: var(--color-primary);
-    --btn-operator-hover: var(--color-primary-light);
-    --btn-function-bg: rgba(0, 102, 255, 0.1);
-    --btn-function-hover: var(--color-primary);
-
-    /* Shadow Colors - TO BE DEFINED */
-    --shadow-primary: rgba(0, 102, 255, 0.2);
-    --shadow-primary-lg: rgba(0, 102, 255, 0.3);
-    --shadow-dark: rgba(0, 0, 0, 0.1);
+    --btn-function-bg: #ffffff;
+    --btn-function-hover: var(--color-sonic-blue);
 }
 
-/* 
-TODO: Implement full Sonic theme styling
-- Define exact color palette
-- Add theme-specific animations
-- Create custom patterns/gradients
-- Add sonic-themed visual elements
-*/
+/* Apply Sonic Theme */
+html.theme-sonic {
+    background-color: var(--bg-light);
+}
 
-/* Placeholder message for users who select this theme */
-.theme-sonic::before {
-    content: '';
-    /* This theme is currently under development */
+html.theme-sonic body {
+    background-color: var(--bg-light);
+    color: var(--text-light-primary);
+}
+
+/* Header */
+html.theme-sonic header {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: var(--border-light);
+}
+
+html.theme-sonic .app-title {
+    color: var(--text-light-primary);
+}
+
+/* Sidebar */
+html.theme-sonic aside {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-right-color: var(--border-light);
+}
+
+html.theme-sonic .sidebar-subtitle {
+    color: var(--color-sonic-yellow);
+}
+
+/* Calculator Card */
+html.theme-sonic .calculator-card {
+    background-color: var(--bg-light-card);
+    border-color: var(--border-light);
+}
+
+/* Display */
+html.theme-sonic .calculator-display {
+    background-color: var(--color-sonic-navy);
+    border-color: rgba(0, 84, 180, 0.3);
+}
+
+html.theme-sonic .display-expression {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+html.theme-sonic .display-result {
+    color: var(--color-sonic-yellow);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+/* Buttons */
+html.theme-sonic .btn-number {
+    background-color: var(--btn-number-bg);
+    color: var(--btn-number-text);
+    border: 1px solid var(--btn-number-border);
+}
+
+html.theme-sonic .btn-number:hover {
+    background-color: var(--btn-number-hover);
+}
+
+html.theme-sonic .btn-operator {
+    background-color: var(--btn-operator-bg);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(224, 30, 34, 0.3);
+}
+
+html.theme-sonic .btn-function {
+    background-color: var(--btn-function-bg);
+    color: var(--color-sonic-blue);
+    border: 1px solid var(--btn-number-border);
+}
+
+html.theme-sonic .btn-function:hover {
+    background-color: var(--color-sonic-blue);
+    color: #ffffff;
+}
+
+/* History */
+html.theme-sonic .history-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--border-light);
+}
+
+html.theme-sonic .history-item:hover {
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+html.theme-sonic .history-result {
+    color: var(--color-sonic-yellow);
+}
+
+html.theme-sonic .history-time {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+html.theme-sonic .history-expression {
+    color: var(--text-light-primary);
+}
+
+/* Footer */
+html.theme-sonic footer {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top-color: var(--border-light);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Scrollbar */
+html.theme-sonic .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-sonic-blue);
+}
+
+/* Mode Toggle */
+html.theme-sonic .mode-toggle-bg {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+html.theme-sonic .mode-toggle-active {
+    background-color: var(--color-primary);
+    color: #ffffff;
 }

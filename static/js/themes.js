@@ -1,14 +1,13 @@
 /**
- * Theme Manager - Modular theme system with easy extensibility
+ * Theme Manager - Modular theme system with dynamic theme loading
  */
 
 class ThemeManager {
     constructor() {
         this.currentTheme = 'pink';
-        this.currentMode = 'light'; // 'light' or 'dark'
         this.themes = [];
         this.storageKeyTheme = 'calculator_theme';
-        this.storageKeyMode = 'calculator_dark_mode';
+        this.loadedThemeFiles = new Set(); // Track loaded CSS files
 
         this.init();
     }
@@ -25,46 +24,51 @@ class ThemeManager {
             const response = await fetch('/api/themes');
             const data = await response.json();
             this.themes = data.themes || [];
+
+            // Set default theme if specified
+            const defaultTheme = this.themes.find(t => t.default);
+            if (defaultTheme && !localStorage.getItem(this.storageKeyTheme)) {
+                this.currentTheme = defaultTheme.id;
+            }
         } catch (error) {
             console.error('Error loading themes:', error);
-            // Fallback to default themes
+            // Fallback to pink theme
             this.themes = [
                 {
                     id: 'pink',
-                    name: 'Default Pink',
+                    name: 'Pink Theme',
                     file: 'pink.css',
                     enabled: true,
-                    description: 'Beautiful pink theme with dark mode support'
+                    default: true,
+                    description: 'Beautiful pink theme'
                 }
             ];
         }
     }
 
     loadPreferences() {
-        // Load saved theme
         const savedTheme = localStorage.getItem(this.storageKeyTheme);
         if (savedTheme) {
-            this.currentTheme = savedTheme;
-        }
-
-        // Load saved dark mode preference
-        const savedMode = localStorage.getItem(this.storageKeyMode);
-        if (savedMode) {
-            this.currentMode = savedMode;
+            // Verify theme exists
+            const themeExists = this.themes.some(t => t.id === savedTheme);
+            if (themeExists) {
+                this.currentTheme = savedTheme;
+            }
         }
     }
 
     savePreferences() {
         localStorage.setItem(this.storageKeyTheme, this.currentTheme);
-        localStorage.setItem(this.storageKeyMode, this.currentMode);
     }
 
     bindEvents() {
-        // Theme button
-        const themeBtn = document.getElementById('btn-themes');
-        if (themeBtn) {
-            themeBtn.addEventListener('click', () => this.openThemeModal());
-        }
+        // Theme buttons (multiple sources)
+        document.querySelectorAll('#btn-themes, [data-action="open-themes"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openThemeModal();
+            });
+        });
 
         // Modal close button
         const closeBtn = document.getElementById('modal-close');
@@ -82,12 +86,6 @@ class ThemeManager {
             });
         }
 
-        // Dark mode toggle (if exists)
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        if (darkModeToggle) {
-            darkModeToggle.addEventListener('click', () => this.toggleDarkMode());
-        }
-
         // Escape key to close modal
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -98,61 +96,68 @@ class ThemeManager {
 
     applyTheme() {
         const html = document.documentElement;
+        const theme = this.themes.find(t => t.id === this.currentTheme);
 
-        // Apply theme class
-        html.className = '';
-        html.classList.add(`theme-${this.currentTheme}`);
-
-        // Apply dark mode
-        if (this.currentMode === 'dark') {
-            html.classList.add('dark');
-        } else {
-            html.classList.add('light');
+        if (!theme) {
+            console.error(`Theme ${this.currentTheme} not found`);
+            return;
         }
+
+        // Remove all theme classes
+        this.themes.forEach(t => {
+            html.classList.remove(`theme-${t.id}`);
+        });
+
+        // Add current theme class
+        html.classList.add(`theme-${theme.id}`);
 
         // Load theme CSS file
-        this.loadThemeCSS();
+        this.loadThemeCSS(theme);
+
+        // Update body class for compatibility
+        document.body.setAttribute('data-theme', theme.id);
     }
 
-    loadThemeCSS() {
-        const theme = this.themes.find(t => t.id === this.currentTheme);
-        if (!theme) return;
+    loadThemeCSS(theme) {
+        // Create or update theme stylesheet link
+        let themeLink = document.getElementById(`theme-${theme.id}-stylesheet`);
 
-        // Check if theme CSS is already loaded
-        const existingLink = document.getElementById('theme-stylesheet');
-
-        if (existingLink) {
-            existingLink.href = `/static/css/themes/${theme.file}`;
-        } else {
-            const link = document.createElement('link');
-            link.id = 'theme-stylesheet';
-            link.rel = 'stylesheet';
-            link.href = `/static/css/themes/${theme.file}`;
-            document.head.appendChild(link);
+        if (!themeLink) {
+            themeLink = document.createElement('link');
+            themeLink.id = `theme-${theme.id}-stylesheet`;
+            themeLink.rel = 'stylesheet';
+            themeLink.href = `/static/css/themes/${theme.file}`;
+            document.head.appendChild(themeLink);
+            this.loadedThemeFiles.add(theme.id);
         }
+
+        // Hide other theme stylesheets, show current one
+        this.themes.forEach(t => {
+            const link = document.getElementById(`theme-${t.id}-stylesheet`);
+            if (link) {
+                link.disabled = (t.id !== theme.id);
+            }
+        });
     }
 
     setTheme(themeId) {
         const theme = this.themes.find(t => t.id === themeId);
 
-        // Don't allow disabled themes
-        if (!theme || !theme.enabled) {
-            if (!theme.enabled) {
-                alert(`${theme.name} is coming soon!`);
-            }
+        if (!theme) {
+            console.error(`Theme ${themeId} not found`);
+            return;
+        }
+
+        // Check if theme is enabled
+        if (!theme.enabled) {
+            alert(`${theme.name} is coming soon!`);
             return;
         }
 
         this.currentTheme = themeId;
         this.savePreferences();
         this.applyTheme();
-        this.renderThemeModal();
-    }
-
-    toggleDarkMode() {
-        this.currentMode = this.currentMode === 'dark' ? 'light' : 'dark';
-        this.savePreferences();
-        this.applyTheme();
+        this.renderThemeModal(); // Update UI to show active theme
     }
 
     openThemeModal() {
@@ -181,12 +186,21 @@ class ThemeManager {
         this.themes.forEach(theme => {
             const isActive = theme.id === this.currentTheme;
             const isDisabled = !theme.enabled;
+            const previewColor = theme.preview || '#cccccc';
 
             html += `
                 <div class="theme-card ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}"
                      data-theme-id="${theme.id}">
-                    <div class="theme-name">${theme.name}</div>
-                    <div class="theme-description">${theme.description}</div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 40px; height: 40px; border-radius: 8px; 
+                                    background-color: ${previewColor}; 
+                                    border: 2px solid rgba(0,0,0,0.1);
+                                    flex-shrink: 0;"></div>
+                        <div style="flex: 1;">
+                            <div class="theme-name">${theme.name}</div>
+                            <div class="theme-description">${theme.description}</div>
+                        </div>
+                    </div>
                     ${isActive ? '<span class="theme-badge">Active</span>' : ''}
                     ${isDisabled ? '<span class="theme-badge placeholder">Coming Soon</span>' : ''}
                 </div>
@@ -196,7 +210,7 @@ class ThemeManager {
         container.innerHTML = html;
 
         // Bind click events
-        container.querySelectorAll('.theme-card').forEach(card => {
+        container.querySelectorAll('.theme-card:not(.disabled)').forEach(card => {
             card.addEventListener('click', () => {
                 const themeId = card.dataset.themeId;
                 this.setTheme(themeId);

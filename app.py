@@ -58,26 +58,30 @@ def calculate():
 
 @app.route('/api/themes', methods=['GET'])
 def get_themes():
-    """Return available themes configuration"""
-    themes = {
-        "themes": [
-            {
-                "id": "pink",
-                "name": "Default Pink",
-                "file": "pink.css",
-                "enabled": True,
-                "description": "Beautiful pink theme with dark mode support"
-            },
-            {
-                "id": "sonic",
-                "name": "Sonic Theme",
-                "file": "sonic.css",
-                "enabled": False,
-                "description": "Coming soon - Placeholder theme"
-            }
-        ]
-    }
-    return jsonify(themes)
+    """Return available themes configuration from themes.json"""
+    import json
+    import os
+    
+    themes_file = os.path.join(app.static_folder, 'css', 'themes', 'themes.json')
+    
+    try:
+        with open(themes_file, 'r') as f:
+            themes_data = json.load(f)
+        return jsonify(themes_data)
+    except Exception as e:
+        # Fallback to default theme if file not found
+        return jsonify({
+            "themes": [
+                {
+                    "id": "pink",
+                    "name": "Pink Theme",
+                    "file": "pink.css",
+                    "enabled": True,
+                    "default": True,
+                    "description": "Beautiful pink theme with dark mode support"
+                }
+            ]
+        })
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

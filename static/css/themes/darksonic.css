@@ -1,0 +1,187 @@
+/* Dark Sonic Theme - Dark Sonic Edition */
+
+:root.theme-darksonic {
+    /* Primary Colors */
+    --color-primary: #E01E22;
+    /* Vibrant Red */
+    --color-sonic-blue: #0054B4;
+    --color-sonic-navy: #060D1A;
+    /* Deep Navy for primary background */
+    --color-sonic-dark-grey: #1E293B;
+    /* Dark Grey for elements */
+    --color-sonic-muted-blue: #334155;
+    /* Blue-gray for buttons */
+    --color-sonic-yellow: #FFD700;
+    /* Gold Ring Yellow */
+
+    /* Background Colors */
+    --bg-dark: var(--color-sonic-navy);
+    --bg-dark-card: var(--color-sonic-dark-grey);
+    --bg-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Text Colors */
+    --text-dark-primary: #ffffff;
+    --text-dark-secondary: rgba(255, 255, 255, 0.8);
+    --text-dark-tertiary: rgba(255, 255, 255, 0.6);
+    --text-dark-muted: rgba(255, 255, 255, 0.4);
+
+    /* Border Colors */
+    --border-dark: rgba(255, 255, 255, 0.1);
+    --border-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Button Colors */
+    --btn-number-bg: var(--color-sonic-muted-blue);
+    --btn-number-hover: #475569;
+    /* slate-600 */
+    --btn-function-bg: var(--color-sonic-muted-blue);
+}
+
+/* Apply Dark Sonic Theme */
+html.theme-darksonic {
+    background-color: var(--bg-dark);
+}
+
+html.theme-darksonic body {
+    background-color: var(--bg-dark);
+    color: var(--text-dark-primary);
+}
+
+/* Header */
+html.theme-darksonic header {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-bottom-color: var(--border-dark);
+}
+
+/* Sidebar */
+html.theme-darksonic aside {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-right-color: var(--border-dark-subtle);
+}
+
+html.theme-darksonic .sidebar-subtitle {
+    color: var(--color-sonic-yellow);
+}
+
+html.theme-darksonic .mode-btn:not(.active) {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+html.theme-darksonic .mode-btn:not(.active):hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Calculator Card */
+html.theme-darksonic .calculator-card {
+    background-color: var(--bg-dark-card);
+    border-color: var(--border-dark);
+}
+
+/* Display */
+html.theme-darksonic .calculator-display {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-color: var(--border-dark-subtle);
+}
+
+html.theme-darksonic .display-expression {
+    color: var(--text-dark-muted);
+}
+
+html.theme-darksonic .display-result {
+    color: var(--color-sonic-yellow);
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+/* Buttons */
+html.theme-darksonic .btn-number {
+    background-color: var(--btn-number-bg);
+    color: var(--text-dark-primary);
+}
+
+html.theme-darksonic .btn-number:hover {
+    background-color: var(--btn-number-hover);
+}
+
+html.theme-darksonic .btn-operator {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(224, 30, 34, 0.3);
+}
+
+html.theme-darksonic .btn-function {
+    background-color: var(--btn-function-bg);
+    color: var(--text-dark-primary);
+}
+
+html.theme-darksonic .btn-function:hover {
+    background-color: var(--btn-number-hover);
+}
+
+/* History */
+html.theme-darksonic .history-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-dark-subtle);
+}
+
+html.theme-darksonic .history-item:hover {
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+html.theme-darksonic .history-result {
+    color: var(--color-sonic-yellow);
+}
+
+html.theme-darksonic .history-time {
+    color: var(--text-dark-muted);
+}
+
+html.theme-darksonic .history-expression {
+    color: var(--text-dark-secondary);
+}
+
+/* Footer */
+html.theme-darksonic footer {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-top-color: var(--border-dark-subtle);
+    color: var(--text-dark-muted);
+}
+
+/* Scrollbar */
+html.theme-darksonic .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+html.theme-darksonic .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-sonic-muted-blue);
+}
+
+html.theme-darksonic .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-sonic-blue);
+}
+
+/* Mode Toggle */
+html.theme-darksonic .mode-toggle-bg {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-dark);
+}
+
+html.theme-darksonic .mode-toggle-active {
+    background-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(224, 30, 34, 0.2);
+}
+
+/* Special Effects */
+html.theme-darksonic .sonic-glow {
+    animation: sonicPulse 2s ease-in-out infinite;
+}
+
+@keyframes sonicPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 16px rgba(255, 215, 0, 0.5);
+    }
+}
