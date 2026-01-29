@@ -1,0 +1,112 @@
+/* Default Pink Theme - Fully Implemented */
+
+:root {
+    /* Primary Colors */
+    --color-primary: #f04299;
+    --color-primary-light: #ff5cad;
+    --color-primary-dark: #d63885;
+
+    /* Background Colors - Light Mode */
+    --bg-light: #f8f6f7;
+    --bg-light-subtle: #fcf8fa;
+    --bg-light-card: #ffffff;
+    --bg-light-card-alt: rgba(255, 255, 255, 0.5);
+
+    /* Background Colors - Dark Mode */
+    --bg-dark: #221019;
+    --bg-dark-card: #2d1b24;
+    --bg-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Text Colors - Light Mode */
+    --text-light-primary: #1b0d14;
+    --text-light-secondary: #9a4c73;
+    --text-light-tertiary: #c47b9d;
+
+    /* Text Colors - Dark Mode */
+    --text-dark-primary: #ffffff;
+    --text-dark-secondary: rgba(255, 255, 255, 0.8);
+    --text-dark-tertiary: rgba(255, 255, 255, 0.6);
+
+    /* Border Colors */
+    --border-light: #f3e7ed;
+    --border-light-subtle: rgba(243, 231, 237, 0.5);
+    --border-dark: rgba(255, 255, 255, 0.1);
+    --border-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Button Colors */
+    --btn-number-bg: #fcf8fa;
+    --btn-number-hover: rgba(240, 66, 153, 0.2);
+    --btn-operator-bg: var(--color-primary);
+    --btn-operator-hover: var(--color-primary-light);
+    --btn-function-bg: rgba(240, 66, 153, 0.1);
+    --btn-function-hover: var(--color-primary);
+
+    /* Shadow Colors */
+    --shadow-primary: rgba(240, 66, 153, 0.2);
+    --shadow-primary-lg: rgba(240, 66, 153, 0.3);
+    --shadow-dark: rgba(0, 0, 0, 0.1);
+}
+
+/* Apply theme to light mode */
+html.light,
+html:not(.dark) {
+    --bg-main: var(--bg-light);
+    --bg-card: var(--bg-light-card);
+    --bg-card-subtle: var(--bg-light-card-alt);
+    --text-primary: var(--text-light-primary);
+    --text-secondary: var(--text-light-secondary);
+    --text-tertiary: var(--text-light-tertiary);
+    --border-color: var(--border-light);
+    --border-subtle: var(--border-light-subtle);
+}
+
+/* Apply theme to dark mode */
+html.dark {
+    --bg-main: var(--bg-dark);
+    --bg-card: var(--bg-dark-card);
+    --bg-card-subtle: var(--bg-dark-subtle);
+    --text-primary: var(--text-dark-primary);
+    --text-secondary: var(--text-dark-secondary);
+    --text-tertiary: var(--text-dark-tertiary);
+    --border-color: var(--border-dark);
+    --border-subtle: var(--border-dark-subtle);
+}
+
+/* Theme-specific overrides for Tailwind classes */
+.theme-pink .bg-background-light {
+    background-color: var(--bg-light) !important;
+}
+
+.theme-pink .dark .bg-background-dark,
+.theme-pink.dark .bg-background-dark {
+    background-color: var(--bg-dark) !important;
+}
+
+.theme-pink .text-primary {
+    color: var(--color-primary) !important;
+}
+
+.theme-pink .bg-primary {
+    background-color: var(--color-primary) !important;
+}
+
+.theme-pink .border-primary {
+    border-color: var(--color-primary) !important;
+}
+
+.theme-pink .hover\:bg-primary:hover {
+    background-color: var(--color-primary) !important;
+}
+
+.theme-pink .hover\:text-primary:hover {
+    color: var(--color-primary) !important;
+}
+
+/* Custom scrollbar for pink theme */
+.theme-pink .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+}
+
+.theme-pink.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+}

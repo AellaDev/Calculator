@@ -1,0 +1,64 @@
+/* Sonic Theme - PLACEHOLDER ONLY */
+/* This theme is not yet implemented. The structure is ready for future development. */
+
+:root.theme-sonic {
+    /* Primary Colors - TO BE DEFINED */
+    --color-primary: #0066ff;
+    /* Placeholder blue */
+    --color-primary-light: #3385ff;
+    --color-primary-dark: #0052cc;
+
+    /* Background Colors - Light Mode - TO BE DEFINED */
+    --bg-light: #f0f4ff;
+    --bg-light-subtle: #f8faff;
+    --bg-light-card: #ffffff;
+    --bg-light-card-alt: rgba(255, 255, 255, 0.5);
+
+    /* Background Colors - Dark Mode - TO BE DEFINED */
+    --bg-dark: #0a1929;
+    --bg-dark-card: #132f4c;
+    --bg-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Text Colors - Light Mode - TO BE DEFINED */
+    --text-light-primary: #0a1929;
+    --text-light-secondary: #1e4976;
+    --text-light-tertiary: #5090d3;
+
+    /* Text Colors - Dark Mode - TO BE DEFINED */
+    --text-dark-primary: #ffffff;
+    --text-dark-secondary: rgba(255, 255, 255, 0.8);
+    --text-dark-tertiary: rgba(255, 255, 255, 0.6);
+
+    /* Border Colors - TO BE DEFINED */
+    --border-light: #d0e1ff;
+    --border-light-subtle: rgba(208, 225, 255, 0.5);
+    --border-dark: rgba(255, 255, 255, 0.1);
+    --border-dark-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Button Colors - TO BE DEFINED */
+    --btn-number-bg: #f8faff;
+    --btn-number-hover: rgba(0, 102, 255, 0.2);
+    --btn-operator-bg: var(--color-primary);
+    --btn-operator-hover: var(--color-primary-light);
+    --btn-function-bg: rgba(0, 102, 255, 0.1);
+    --btn-function-hover: var(--color-primary);
+
+    /* Shadow Colors - TO BE DEFINED */
+    --shadow-primary: rgba(0, 102, 255, 0.2);
+    --shadow-primary-lg: rgba(0, 102, 255, 0.3);
+    --shadow-dark: rgba(0, 0, 0, 0.1);
+}
+
+/* 
+TODO: Implement full Sonic theme styling
+- Define exact color palette
+- Add theme-specific animations
+- Create custom patterns/gradients
+- Add sonic-themed visual elements
+*/
+
+/* Placeholder message for users who select this theme */
+.theme-sonic::before {
+    content: '';
+    /* This theme is currently under development */
+}

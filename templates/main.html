@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Calculator - Basic Mode</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/pink.css') }}">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f04299",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#221019",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display transition-colors duration-300">
+
+    <!-- Top Navigation Bar -->
+    <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#f3e7ed] dark:border-white/10 px-10 py-4 bg-white/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="flex items-center gap-3 text-[#1b0d14] dark:text-white">
+            <div class="size-8 bg-primary rounded-full flex items-center justify-center text-white">
+                <span class="material-symbols-outlined text-xl">calculate</span>
+            </div>
+            <h2 class="text-xl font-extrabold leading-tight tracking-[-0.015em]">Calculator</h2>
+        </div>
+        <div class="flex flex-1 justify-end gap-8 items-center">
+            <nav class="hidden md:flex items-center gap-9">
+                <a class="text-[#1b0d14] dark:text-white/80 text-sm font-semibold hover:text-primary transition-colors"
+                    href="#">Home</a>
+                <a class="text-[#1b0d14] dark:text-white/80 text-sm font-semibold hover:text-primary transition-colors"
+                    href="#" id="btn-themes">Themes</a>
+                <a class="text-[#1b0d14] dark:text-white/80 text-sm font-semibold hover:text-primary transition-colors"
+                    href="#">Support</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="p-2 rounded-full hover:bg-primary/10 text-primary transition-colors"
+                    id="dark-mode-toggle" title="Toggle dark mode">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 flex overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside
+            class="w-64 border-r border-[#f3e7ed] dark:border-white/10 p-6 hidden lg:flex flex-col justify-between bg-white/30 dark:bg-background-dark/30 backdrop-blur-sm">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-1">
+                    <h1 class="text-[#1b0d14] dark:text-white text-lg font-bold">Modes</h1>
+                    <p class="text-primary text-sm font-medium">Choose your layout</p>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div class="mode-btn flex items-center gap-3 px-4 py-3 rounded-full bg-primary text-white shadow-lg shadow-primary/20 cursor-pointer"
+                        data-mode="basic">
+                        <span class="material-symbols-outlined">dialpad</span>
+                        <p class="text-sm font-bold leading-normal">Basic Calculator</p>
+                    </div>
+                    <div class="mode-btn flex items-center gap-3 px-4 py-3 rounded-full hover:bg-primary/10 text-[#1b0d14] dark:text-white transition-colors cursor-pointer group"
+                        data-mode="scientific">
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors">science</span>
+                        <p class="text-sm font-medium leading-normal">Scientific Calculator</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Calculator Section -->
+        <section class="flex-1 overflow-y-auto px-6 py-8 flex justify-center">
+            <div class="max-w-[900px] w-full flex flex-col md:flex-row gap-8 items-start">
+                <!-- Calculator Card -->
+                <div class="flex-1 w-full flex flex-col items-center">
+                    <!-- Segmented Mode Toggle -->
+                    <div class="flex w-full max-w-sm mb-8">
+                        <div
+                            class="flex h-12 w-full items-center justify-center rounded-full bg-[#f3e7ed] dark:bg-white/5 p-1.5">
+                            <label
+                                class="mode-toggle flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-4 bg-white dark:bg-primary shadow-sm text-primary dark:text-white text-sm font-bold transition-all"
+                                data-mode="basic">
+                                <span class="truncate">Basic</span>
+                                <input checked class="hidden" name="mode" type="radio" value="basic" />
+                            </label>
+                            <label
+                                class="mode-toggle flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-4 text-[#9a4c73] dark:text-white/60 text-sm font-medium hover:text-primary transition-all"
+                                data-mode="scientific">
+                                <span class="truncate">Scientific</span>
+                                <input class="hidden" name="mode" type="radio" value="scientific" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- The Calculator Interface -->
+                    <div
+                        class="bg-white dark:bg-[#2d1b24] w-full max-w-[420px] rounded-xl shadow-2xl p-6 border border-[#f3e7ed] dark:border-white/5">
+                        <!-- Display Area -->
+                        <div
+                            class="p-6 bg-background-light dark:bg-background-dark/50 rounded-lg mb-6 flex flex-col items-end justify-center min-h-[140px] border border-primary/5">
+                            <p class="text-[#9a4c73] dark:text-primary/70 text-lg font-medium tracking-wide mb-1"
+                                id="display-expression">0</p>
+                            <p class="text-[#1b0d14] dark:text-white text-5xl font-extrabold tracking-tight"
+                                id="display-result">0</p>
+                        </div>
+
+                        <!-- Scientific Functions Row (Hidden by default) -->
+                        <div class="sci-function-row">
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="sin">sin</button>
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="cos">cos</button>
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="tan">tan</button>
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="log">log</button>
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="ln">ln</button>
+                        </div>
+
+                        <div class="sci-function-row">
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="(">(</button>
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function=")">)</button>
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="sqrt">√</button>
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="pow">x^y</button>
+                            <button
+                                class="h-12 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+                                data-function="pi">π</button>
+                        </div>
+
+                        <!-- Button Grid -->
+                        <div class="calculator-grid">
+                            <!-- Row 1 -->
+                            <button
+                                class="h-16 rounded-full bg-primary/10 text-primary font-bold text-lg hover:bg-primary hover:text-white transition-all"
+                                id="btn-clear">AC</button>
+                            <button
+                                class="h-16 rounded-full bg-primary/10 text-primary font-bold text-lg hover:bg-primary hover:text-white transition-all"
+                                id="btn-backspace">
+                                <span class="material-symbols-outlined">backspace</span>
+                            </button>
+                            <button
+                                class="h-16 rounded-full bg-primary/10 text-primary font-bold text-lg hover:bg-primary hover:text-white transition-all"
+                                data-function="percent">%</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl hover:brightness-110 transition-all"
+                                data-operator="÷">÷</button>
+
+                            <!-- Row 2 -->
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="7">7</button>
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="8">8</button>
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="9">9</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl hover:brightness-110 transition-all"
+                                data-operator="×">×</button>
+
+                            <!-- Row 3 -->
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="4">4</button>
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="5">5</button>
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="6">6</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl hover:brightness-110 transition-all"
+                                data-operator="−">−</button>
+
+                            <!-- Row 4 -->
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="1">1</button>
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="2">2</button>
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="3">3</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl hover:brightness-110 transition-all"
+                                data-operator="+">+</button>
+
+                            <!-- Row 5 -->
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number="0">0</button>
+                            <button
+                                class="h-16 rounded-full bg-[#fcf8fa] dark:bg-white/5 text-[#1b0d14] dark:text-white font-bold text-xl hover:bg-primary/20 transition-all"
+                                data-number=".">.</button>
+                            <button
+                                class="h-16 rounded-full col-span-2 bg-primary text-white font-bold text-2xl shadow-lg shadow-primary/30 hover:brightness-110 transition-all"
+                                id="btn-equals">=</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculation History Sidebar -->
+                <div class="w-full md:w-[320px] flex flex-col h-full max-h-[700px]">
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <h3 class="text-[#1b0d14] dark:text-white font-bold text-lg">History</h3>
+                        <button class="text-primary text-sm font-bold hover:underline" id="btn-clear-history">Clear
+                            all</button>
+                    </div>
+                    <div class="flex-1 overflow-y-auto custom-scrollbar pr-2 flex flex-col gap-4"
+                        id="history-container">
+                        <!-- History items will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Theme Selection Modal -->
+    <div class="modal-overlay" id="theme-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Choose Theme</h2>
+                <button class="modal-close" id="modal-close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div id="theme-list">
+                <!-- Theme cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Status Bar -->
+    <footer
+        class="px-6 py-2 border-t border-[#f3e7ed] dark:border-white/10 flex justify-between items-center bg-white dark:bg-background-dark/80 text-[10px] uppercase font-bold tracking-widest text-[#9a4c73] dark:text-white/40">
+        <div class="flex gap-4">
+            <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[12px]">calculate</span>
+                Calculator v1.0
+            </span>
+        </div>
+        <div class="flex gap-4">
+            <span>© 2026 Calculator App</span>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/history.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/themes.js') }}"></script>
+
+    <script>
+        // Mode switching functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const modeButtons = document.querySelectorAll('.mode-btn, .mode-toggle');
+
+            modeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mode = btn.dataset.mode;
+
+                    // Update active states
+                    document.querySelectorAll('.mode-btn').forEach(b => {
+                        if (b.dataset.mode === mode) {
+                            b.className = 'mode-btn flex items-center gap-3 px-4 py-3 rounded-full bg-primary text-white shadow-lg shadow-primary/20 cursor-pointer';
+                        } else {
+                            b.className = 'mode-btn flex items-center gap-3 px-4 py-3 rounded-full hover:bg-primary/10 text-[#1b0d14] dark:text-white transition-colors cursor-pointer group';
+                        }
+                    });
+
+                    document.querySelectorAll('.mode-toggle').forEach(b => {
+                        if (b.dataset.mode === mode) {
+                            b.className = 'mode-toggle flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-4 bg-white dark:bg-primary shadow-sm text-primary dark:text-white text-sm font-bold transition-all';
+                            b.querySelector('input').checked = true;
+                        } else {
+                            b.className = 'mode-toggle flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-4 text-[#9a4c73] dark:text-white/60 text-sm font-medium hover:text-primary transition-all';
+                            b.querySelector('input').checked = false;
+                        }
+                    });
+
+                    // Update calculator mode
+                    if (window.calculator) {
+                        window.calculator.setMode(mode);
+                    }
+
+                    // Update title
+                    document.title = `Calculator - ${mode === 'basic' ? 'Basic' : 'Scientific'} Mode`;
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SpeedCalc - Fast Mode</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#E01E22", // Vibrant Red like shoes
+                        "sonic-blue": "#0054B4", // Iconic Blue
+                        "sonic-navy": "#0A1428", // Deep Navy for dark mode
+                        "sonic-yellow": "#FFD700", // Gold Ring Yellow
+                        "background-light": "#87CEEB", // Sky Blue
+                        "background-dark": "#0A1428", // Deep Navy
+                        "button-light": "#F5F5F5",
+                        "text-dark-blue": "#001F3F",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #0054B4;
+            border-radius: 10px;
+        }
+        :root {
+            --primary-accent: #E01E22;
+            --ring-gold: #FFD700;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display transition-colors duration-300">
+    <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/20 dark:border-white/10 px-10 py-4 bg-white/20 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="flex items-center gap-3 text-white">
+            <div class="size-8 bg-primary rounded-full flex items-center justify-center text-white shadow-lg">
+                <span class="material-symbols-outlined text-xl">bolt</span>
+            </div>
+            <h2 class="text-xl font-extrabold leading-tight tracking-[-0.015em] text-white dark:text-white">SpeedCalc
+            </h2>
+        </div>
+        <div class="flex flex-1 justify-end gap-8 items-center">
+            <nav class="hidden md:flex items-center gap-9">
+                <a class="text-white dark:text-white/80 text-sm font-semibold hover:text-sonic-yellow transition-colors"
+                    href="#">Home</a>
+                <a class="text-white dark:text-white/80 text-sm font-semibold hover:text-sonic-yellow transition-colors"
+                    href="#">Themes</a>
+                <a class="text-white dark:text-white/80 text-sm font-semibold hover:text-sonic-yellow transition-colors"
+                    href="#">Support</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="p-2 rounded-full hover:bg-white/10 text-white transition-colors">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCeXEfHXMuhQixxlS_fwoo6qO3UH2zbx3HzMYeOPdwlYolGdCA8mH-39fjcCI3sldHYmKDXorQsc4HGfS-2wBbrC8oNXGSOLLT16UJBudQir4VZQsBqq0XPDJChzb0FtgMfsPa5kQRWv8ONODWP2xmv67na_piZKdHTwwdz7c4PwTJ2POxXRdy4e6-KSdQfm4bMbCNXJbUyE95VFI5ZBxjsPXl8ylbX6tjkJACwbRYjwypa61vUwSZ1rX4VWElPqB3NsOY96cvUWUs");'>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-1 flex overflow-hidden">
+        <aside
+            class="w-64 border-r border-white/10 p-6 hidden lg:flex flex-col justify-between bg-white/10 dark:bg-background-dark/30 backdrop-blur-sm">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-1">
+                    <h1 class="text-white text-lg font-bold">Modes</h1>
+                    <p class="text-sonic-yellow text-sm font-medium">Choose your speed</p>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div
+                        class="flex items-center gap-3 px-4 py-3 rounded-full bg-primary text-white shadow-lg shadow-primary/20 cursor-pointer">
+                        <span class="material-symbols-outlined">dialpad</span>
+                        <p class="text-sm font-bold leading-normal">Normal</p>
+                    </div>
+                    <div
+                        class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-white/10 text-white transition-colors cursor-pointer group">
+                        <span
+                            class="material-symbols-outlined group-hover:text-sonic-yellow transition-colors">science</span>
+                        <p class="text-sm font-medium leading-normal">Scientific</p>
+                    </div>
+                    <div
+                        class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-white/10 text-white transition-colors cursor-pointer group">
+                        <span
+                            class="material-symbols-outlined group-hover:text-sonic-yellow transition-colors">currency_exchange</span>
+                        <p class="text-sm font-medium leading-normal">Converter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-sonic-blue/30 rounded-2xl p-4 border border-white/20">
+                <p class="text-sonic-yellow text-xs font-bold uppercase tracking-wider mb-2">Supersonic Pro</p>
+                <p class="text-sm text-white/80 mb-4">Unlock extreme speed and graphing tools.</p>
+                <button
+                    class="w-full bg-primary text-white text-sm font-bold py-3 rounded-full shadow-lg hover:scale-105 transition-all">
+                    Go Premium
+                </button>
+            </div>
+        </aside>
+        <section class="flex-1 overflow-y-auto px-6 py-8 flex justify-center">
+            <div class="max-w-[900px] w-full flex flex-col md:flex-row gap-8 items-start">
+                <div class="flex-1 w-full flex flex-col items-center">
+                    <div class="flex w-full max-w-sm mb-8">
+                        <div
+                            class="flex h-12 w-full items-center justify-center rounded-full bg-white/20 dark:bg-white/5 p-1.5 backdrop-blur-sm">
+                            <label
+                                class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-4 bg-primary text-white shadow-sm text-sm font-bold transition-all">
+                                <span class="truncate">Normal</span>
+                                <input checked="" class="hidden" name="mode" type="radio" value="Normal" />
+                            </label>
+                            <label
+                                class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-4 text-white text-sm font-medium hover:text-sonic-yellow transition-all">
+                                <span class="truncate">Scientific</span>
+                                <input class="hidden" name="mode" type="radio" value="Scientific" />
+                            </label>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-[#F8F9FA] dark:bg-[#152033] w-full max-w-[420px] rounded-xl shadow-2xl p-6 border border-white/20">
+                        <div
+                            class="p-6 bg-sonic-navy dark:bg-black/40 rounded-lg mb-6 flex flex-col items-end justify-center min-h-[140px] border-2 border-sonic-blue/30">
+                            <p class="text-white/60 text-lg font-medium tracking-wide mb-1">1,250 + 425</p>
+                            <p
+                                class="text-sonic-yellow text-5xl font-extrabold tracking-tight drop-shadow-[0_0_8px_rgba(255,215,0,0.4)]">
+                                1,675</p>
+                        </div>
+                        <div class="calculator-grid">
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-lg hover:bg-sonic-blue hover:text-white border border-sonic-blue/10 transition-all shadow-sm">AC</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-lg hover:bg-sonic-blue hover:text-white border border-sonic-blue/10 transition-all shadow-sm">
+                                <span class="material-symbols-outlined">backspace</span>
+                            </button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-lg hover:bg-sonic-blue hover:text-white border border-sonic-blue/10 transition-all shadow-sm">%</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl hover:brightness-110 shadow-lg active:scale-95 transition-all">÷</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">7</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">8</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">9</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl hover:brightness-110 shadow-lg active:scale-95 transition-all">×</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">4</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">5</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">6</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl hover:brightness-110 shadow-lg active:scale-95 transition-all">−</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">1</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">2</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">3</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl hover:brightness-110 shadow-lg active:scale-95 transition-all">+</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">0</button>
+                            <button
+                                class="h-16 rounded-full bg-white text-sonic-blue font-bold text-xl hover:bg-sonic-blue/10 border border-sonic-blue/5 transition-all shadow-sm">.</button>
+                            <button
+                                class="h-16 rounded-full col-span-2 bg-primary text-white font-bold text-2xl shadow-lg hover:brightness-110 active:scale-[0.98] transition-all">=</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-[320px] flex flex-col h-full max-h-[700px]">
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <h3 class="text-white font-bold text-lg">History</h3>
+                        <button class="text-sonic-yellow text-sm font-bold hover:underline">Clear all</button>
+                    </div>
+                    <div class="flex-1 overflow-y-auto custom-scrollbar pr-2 flex flex-col gap-4">
+                        <div
+                            class="p-4 bg-white/10 dark:bg-white/5 rounded-lg border border-white/10 group hover:border-sonic-yellow/30 transition-all cursor-pointer">
+                            <div class="flex justify-between items-start mb-1">
+                                <p class="text-white/60 text-xs">Today, 10:45 AM</p>
+                                <span
+                                    class="material-symbols-outlined text-xs text-sonic-yellow opacity-0 group-hover:opacity-100 transition-opacity">delete</span>
+                            </div>
+                            <p class="text-white text-sm font-medium">125 + 250</p>
+                            <p class="text-sonic-yellow text-xl font-bold">375</p>
+                        </div>
+                        <div
+                            class="p-4 bg-white/10 dark:bg-white/5 rounded-lg border border-white/10 group hover:border-sonic-yellow/30 transition-all cursor-pointer">
+                            <div class="flex justify-between items-start mb-1">
+                                <p class="text-white/60 text-xs">Today, 10:42 AM</p>
+                                <span
+                                    class="material-symbols-outlined text-xs text-sonic-yellow opacity-0 group-hover:opacity-100 transition-opacity">delete</span>
+                            </div>
+                            <p class="text-white text-sm font-medium">1,500 / 12</p>
+                            <p class="text-sonic-yellow text-xl font-bold">125</p>
+                        </div>
+                        <div
+                            class="p-4 bg-white/10 dark:bg-white/5 rounded-lg border border-white/10 group hover:border-sonic-yellow/30 transition-all cursor-pointer">
+                            <div class="flex justify-between items-start mb-1">
+                                <p class="text-white/60 text-xs">Today, 09:15 AM</p>
+                                <span
+                                    class="material-symbols-outlined text-xs text-sonic-yellow opacity-0 group-hover:opacity-100 transition-opacity">delete</span>
+                            </div>
+                            <p class="text-white text-sm font-medium">850 * 0.15</p>
+                            <p class="text-sonic-yellow text-xl font-bold">127.5</p>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-6 rounded-lg overflow-hidden h-24 bg-gradient-to-r from-sonic-blue to-primary p-0.5 shadow-xl">
+                        <div class="w-full h-full bg-sonic-navy flex items-center justify-center">
+                            <p
+                                class="text-white text-xs font-extrabold uppercase tracking-widest bg-primary px-4 py-2 rounded-full shadow-lg">
+                                Gotta Go Fast</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer
+        class="px-6 py-2 border-t border-white/10 flex justify-between items-center bg-white/10 dark:bg-background-dark/80 backdrop-blur-md text-[10px] uppercase font-bold tracking-widest text-white/60">
+        <div class="flex gap-4">
+            <span class="flex items-center gap-1"><span
+                    class="size-2 bg-sonic-yellow rounded-full animate-pulse shadow-[0_0_5px_#FFD700]"></span> Warp
+                Speed Sync Active</span>
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">bolt</span> 0.001s
+                Latency</span>
+        </div>
+        <div class="flex gap-4">
+            <span>© 2024 SPEEDCALC LABS</span>
+            <span class="text-primary">v2.4.0-FAST</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>PinkCalc - Sophisticated Dark Mode</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f04299",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#1a1216", // Deep warm charcoal/dark plum
+                        "card-dark": "#251b21", // Slightly lighter cohesive dark tone
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                font-family: "Plus Jakarta Sans", sans-serif;
+            }
+        }
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(240, 66, 153, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark min-h-screen flex flex-col font-display transition-colors duration-300 text-white">
+    <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-white/5 px-10 py-4 bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="flex items-center gap-3 text-white">
+            <div
+                class="size-8 bg-primary rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/20">
+                <span class="material-symbols-outlined text-xl">calculate</span>
+            </div>
+            <h2 class="text-xl font-extrabold leading-tight tracking-[-0.015em]">PinkCalc</h2>
+        </div>
+        <div class="flex flex-1 justify-end gap-8 items-center">
+            <nav class="hidden md:flex items-center gap-9">
+                <a class="text-white/80 text-sm font-semibold hover:text-primary transition-colors" href="#">Home</a>
+                <a class="text-white/80 text-sm font-semibold hover:text-primary transition-colors" href="#">Themes</a>
+                <a class="text-white/80 text-sm font-semibold hover:text-primary transition-colors" href="#">Support</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="p-2 rounded-full hover:bg-primary/10 text-primary transition-colors">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCeXEfHXMuhQixxlS_fwoo6qO3UH2zbx3HzMYeOPdwlYolGdCA8mH-39fjcCI3sldHYmKDXorQsc4HGfS-2wBbrC8oNXGSOLLT16UJBudQir4VZQsBqq0XPDJChzb0FtgMfsPa5kQRWv8ONODWP2xmv67na_piZKdHTwwdz7c4PwTJ2POxXRdy4e6-KSdQfm4bMbCNXJbUyE95VFI5ZBxjsPXl8ylbX6tjkJACwbRYjwypa61vUwSZ1rX4VWElPqB3NsOY96cvUWUs");'>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-1 flex overflow-hidden">
+        <aside
+            class="w-64 border-r border-white/5 p-6 hidden lg:flex flex-col justify-between bg-card-dark/50 backdrop-blur-sm">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-1">
+                    <h1 class="text-white text-lg font-bold">Modes</h1>
+                    <p class="text-primary text-sm font-medium">Choose your layout</p>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div
+                        class="flex items-center gap-3 px-4 py-3 rounded-full bg-primary text-white shadow-lg shadow-primary/20 cursor-pointer">
+                        <span class="material-symbols-outlined">dialpad</span>
+                        <p class="text-sm font-bold leading-normal">Normal</p>
+                    </div>
+                    <div
+                        class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-primary/10 text-white/70 transition-colors cursor-pointer group">
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors">science</span>
+                        <p class="text-sm font-medium leading-normal">Scientific</p>
+                    </div>
+                    <div
+                        class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-primary/10 text-white/70 transition-colors cursor-pointer group">
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors">currency_exchange</span>
+                        <p class="text-sm font-medium leading-normal">Converter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                <p class="text-white text-xs font-bold uppercase tracking-wider mb-2">Pro Feature</p>
+                <p class="text-sm text-white/60 mb-4">Unlock advanced formulas and graphing tools.</p>
+                <button
+                    class="w-full bg-primary text-white text-sm font-bold py-3 rounded-full shadow-lg shadow-primary/30 hover:brightness-110 transition-all">
+                    Go Premium
+                </button>
+            </div>
+        </aside>
+        <section class="flex-1 overflow-y-auto px-6 py-8 flex justify-center">
+            <div class="max-w-[900px] w-full flex flex-col md:flex-row gap-8 items-start">
+                <div class="flex-1 w-full flex flex-col items-center">
+                    <div class="flex w-full max-w-sm mb-8">
+                        <div
+                            class="flex h-12 w-full items-center justify-center rounded-full bg-white/5 p-1.5 border border-white/5">
+                            <label
+                                class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-4 bg-primary shadow-lg shadow-primary/20 text-white text-sm font-bold transition-all">
+                                <span class="truncate">Normal</span>
+                                <input checked="" class="hidden" name="mode" type="radio" value="Normal" />
+                            </label>
+                            <label
+                                class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-4 text-white/60 text-sm font-medium hover:text-primary transition-all">
+                                <span class="truncate">Scientific</span>
+                                <input class="hidden" name="mode" type="radio" value="Scientific" />
+                            </label>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-card-dark w-full max-w-[420px] rounded-[2.5rem] shadow-2xl p-8 border border-white/10">
+                        <div
+                            class="p-6 bg-background-dark/60 rounded-2xl mb-8 flex flex-col items-end justify-center min-h-[160px] border border-white/5 shadow-inner">
+                            <p class="text-primary/70 text-lg font-medium tracking-wide mb-2">1,250 + 425</p>
+                            <p class="text-white text-6xl font-extrabold tracking-tight">1,675</p>
+                        </div>
+                        <div class="calculator-grid">
+                            <button
+                                class="h-16 rounded-full bg-primary/10 text-primary font-bold text-lg hover:bg-primary/20 transition-all">AC</button>
+                            <button
+                                class="h-16 rounded-full bg-primary/10 text-primary font-bold text-lg hover:bg-primary/20 transition-all flex items-center justify-center">
+                                <span class="material-symbols-outlined">backspace</span>
+                            </button>
+                            <button
+                                class="h-16 rounded-full bg-primary/10 text-primary font-bold text-lg hover:bg-primary/20 transition-all">%</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">÷</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">7</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">8</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">9</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">×</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">4</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">5</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">6</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">−</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">1</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">2</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">3</button>
+                            <button
+                                class="h-16 rounded-full bg-primary text-white font-bold text-2xl shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">+</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">0</button>
+                            <button
+                                class="h-16 rounded-full bg-white/5 text-white/90 font-bold text-xl hover:bg-white/10 active:scale-95 transition-all">.</button>
+                            <button
+                                class="h-16 rounded-full col-span-2 bg-primary text-white font-bold text-2xl shadow-lg shadow-primary/40 hover:brightness-110 active:scale-[0.98] transition-all">=</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-[320px] flex flex-col h-full max-h-[700px]">
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <h3 class="text-white font-bold text-lg">History</h3>
+                        <button class="text-primary text-sm font-bold hover:underline">Clear all</button>
+                    </div>
+                    <div class="flex-1 overflow-y-auto custom-scrollbar pr-2 flex flex-col gap-4">
+                        <div
+                            class="p-4 bg-card-dark rounded-xl border border-white/5 group hover:border-primary/30 transition-all cursor-pointer">
+                            <div class="flex justify-between items-start mb-1">
+                                <p class="text-white/40 text-xs">Today, 10:45 AM</p>
+                                <span
+                                    class="material-symbols-outlined text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">delete</span>
+                            </div>
+                            <p class="text-white/70 text-sm font-medium">125 + 250</p>
+                            <p class="text-primary text-xl font-bold">375</p>
+                        </div>
+                        <div
+                            class="p-4 bg-card-dark rounded-xl border border-white/5 group hover:border-primary/30 transition-all cursor-pointer">
+                            <div class="flex justify-between items-start mb-1">
+                                <p class="text-white/40 text-xs">Today, 10:42 AM</p>
+                                <span
+                                    class="material-symbols-outlined text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">delete</span>
+                            </div>
+                            <p class="text-white/70 text-sm font-medium">1,500 / 12</p>
+                            <p class="text-primary text-xl font-bold">125</p>
+                        </div>
+                        <div
+                            class="p-4 bg-card-dark rounded-xl border border-white/5 group hover:border-primary/30 transition-all cursor-pointer">
+                            <div class="flex justify-between items-start mb-1">
+                                <p class="text-white/40 text-xs">Today, 09:15 AM</p>
+                                <span
+                                    class="material-symbols-outlined text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">delete</span>
+                            </div>
+                            <p class="text-white/70 text-sm font-medium">850 * 0.15</p>
+                            <p class="text-primary text-xl font-bold">127.5</p>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-6 rounded-xl overflow-hidden h-24 bg-primary/20 relative group cursor-pointer border border-white/5">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 opacity-60"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCiYMoWw7t-KdHZo4bnI2sjIchVPdQqKeF0fWPiM01GC8oehe4dhYZm5a7b33maD0kmWYU74WKzI040mnqk6kO2qK6ph2VyyFBb8nLUMmaR2tDvkhkYrf-5yFDNYftBTaXyle4kVDVyhWhY51u_G4PR8Pm5cw_ppuuaQOtqhGC7mCLtlagcj-52u6fQCFkbkjXBvC4qMStDFuxJniTuVwIphuLKQol39jUTX4Lxh_TzN7pPGhfI_LdXA-yGdnN28zqVRFMRbNC1hTw');">
+                        </div>
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <p
+                                class="text-white text-xs font-extrabold uppercase tracking-widest bg-primary/80 px-4 py-1.5 rounded-full shadow-lg">
+                                New Themes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer
+        class="px-6 py-2 border-t border-white/5 flex justify-between items-center bg-background-dark text-[10px] uppercase font-bold tracking-widest text-white/40">
+        <div class="flex gap-4">
+            <span class="flex items-center gap-1"><span class="size-2 bg-green-500 rounded-full animate-pulse"></span>
+                Cloud Sync Active</span>
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">database</span>
+                2.4 MB Used</span>
+        </div>
+        <div class="flex gap-4">
+            <span>© 2024 PINKCALC STUDIOS</span>
+            <span class="text-primary">v2.4.0-STABLE</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>
